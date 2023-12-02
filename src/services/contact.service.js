@@ -38,14 +38,18 @@ async function save(contact) {
 
 
 function _createDefaultContacts() {
-    [{
-        name: "Doris Aubut",
+    return [{
+        _id: "I6ebsuqLXN",
+        fullname: "Doris Aubut",
         email: "LSjaardema@tortor.gov",
-        phone: "(774)563-9173"
+        phone: "(774)563-9173",
+        img: "https://robohash.org/Doris.png"
     },
     {
-        name: "Ofir Kaspi",
+        _id: "I6ebsuqGGG",
+        fullname: "Ofir Kaspi",
         email: "aba@tov.gov",
-        phone: "(972)563-1111"
+        phone: "(972)563-1111",
+        img: "https://robohash.org/Ofir.png"
     }]
 }

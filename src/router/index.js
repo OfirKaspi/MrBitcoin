@@ -1,5 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
+import ContactIndex from '../pages/ContactIndex.vue'
+import ContactDetails from '../pages/ContactDetails.vue'
+import Chart from '../pages/Chart.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -8,6 +11,21 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomePage
+    },
+    {
+      path: '/contact',
+      name: 'ContactIndex',
+      component: ContactIndex,
+    },
+    {
+      path: '/contact/:contactId',
+      name: 'ContactDetails',
+      component: ContactDetails,
+    },
+    {
+      path: '/stats',
+      name: 'Chart',
+      component: Chart,
     },
     {
       path: '/about',
