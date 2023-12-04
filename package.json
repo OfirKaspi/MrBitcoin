@@ -2,7 +2,7 @@
   "name": "mrbitcoin",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://ofirkaspi.github.io/MrBitcoin/",
+  "homepage": "https://OfirKaspi.github.io/MrBitcoin/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
