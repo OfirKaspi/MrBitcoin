@@ -8,7 +8,8 @@ export const contactService = {
     query,
     getById,
     remove,
-    save
+    save,
+    getEmptyContact
 }
 
 async function query() {
@@ -35,7 +36,13 @@ async function save(contact) {
     else return await dbService.post(KEY, contact)
 }
 
-
+function getEmptyContact() {
+    return {
+        fullname: "",
+        email: "",
+        phone: "",
+    }
+}
 
 function _createDefaultContacts() {
     return [{
@@ -43,13 +50,11 @@ function _createDefaultContacts() {
         fullname: "Doris Aubut",
         email: "LSjaardema@tortor.gov",
         phone: "(774)563-9173",
-        img: "https://robohash.org/Doris.png"
     },
     {
         _id: "I6ebsuqGGG",
         fullname: "Ofir Kaspi",
         email: "aba@tov.gov",
         phone: "(972)563-1111",
-        img: "https://robohash.org/Ofir.png"
     }]
 }

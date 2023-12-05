@@ -6,9 +6,9 @@
                 <RouterLink :to="`/contact/${contact._id}`">
                     <button>Details</button>
                 </RouterLink>
-                <!-- <RouterLink :to="`/contact/edit/${contact._id}`">
+                <RouterLink :to="`/contact/edit/${contact._id}`">
                     <button>Edit</button>
-                </RouterLink> -->
+                </RouterLink>
                 <button @click="onRemoveContact(contact._id)">x</button>
             </section>
         </li>

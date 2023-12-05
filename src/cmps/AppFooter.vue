@@ -1,7 +1,8 @@
 <template>
-	<footer class="app-footer">
+    <footer class="app-footer">
         <p>Coffeerights 2023</p>
-	</footer>
+        <p>{{ $store.getters.contacts?.length }}</p>
+    </footer>
 </template>
 
 <script>
@@ -13,7 +14,7 @@ export default {}
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
     height: 5vh;
     padding: 10px;
     background-color: lightblue;

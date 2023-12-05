@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import ContactIndex from '../pages/ContactIndex.vue'
 import ContactDetails from '../pages/ContactDetails.vue'
+import ContactEdit from '../pages/ContactEdit.vue'
 import Chart from '../pages/Chart.vue'
 
 const router = createRouter({
@@ -18,9 +19,14 @@ const router = createRouter({
       component: ContactIndex,
     },
     {
-      path: '/contact/:contactId',
+      path: '/contact/:_id',
       name: 'ContactDetails',
       component: ContactDetails,
+    },
+    {
+      path: '/contact/edit/:_id?',
+      name: 'ContactEdit',
+      component: ContactEdit,
     },
     {
       path: '/stats',

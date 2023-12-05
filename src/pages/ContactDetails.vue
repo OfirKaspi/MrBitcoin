@@ -1,7 +1,7 @@
 <template>
     <h1>Contact Details</h1>
     <section v-if="contact" class="contact-details">
-        <img :src="contact.img">
+        <img :src="'https://robohash.org/' + contact.fullname + '.png'">
         <h2>{{ contact.fullname }}</h2>
         <p>{{ contact.email }}</p>
         <p>{{ contact.phone }}</p>
@@ -13,16 +13,18 @@
 </template>
 
 <script>
-import { contactService } from '../services/contact.service.js'
 export default {
     data() {
         return {
             contact: null,
         }
     },
+    computed: {
+        contacts() { return this.$store.getters.contacts }
+    },
     async created() {
-        const contactId = this.$route.params.contactId
-        this.contact = await contactService.getById(contactId)
+        const contactId = this.$route.params._id
+        this.contact = this.contacts.find(contact => contact._id === contactId)
     }
 } 
 </script>

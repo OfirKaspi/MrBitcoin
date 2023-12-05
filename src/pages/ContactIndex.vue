@@ -1,14 +1,16 @@
 <template>
     <section class="contact-index">
         <ContactFilter @filter="setFilterBy" />
-        <h1>contact index</h1>
+        <RouterLink to="contact/edit">
+            <button>Add a Contact</button>
+        </RouterLink>
         <ContactList @remove="removeContact" v-if="contacts" :contacts="filteredContacts" />
         <img v-else src="../assets/puff.svg" alt="" class="loader">
     </section>
 </template>
 
 <script>
-import { contactService } from '@/services/contact.service.js'
+import { eventBus } from '../services/eventBus.service'
 
 import ContactList from '../cmps/ContactList.vue'
 import ContactFilter from '../cmps/ContactFilter.vue'
@@ -16,32 +18,39 @@ import ContactFilter from '../cmps/ContactFilter.vue'
 export default {
     data() {
         return {
-            contacts: null,
+            // contacts: null,
             filterBy: { txt: '' },
         }
     },
     methods: {
         async removeContact(contactId) {
-            await contactService.remove(contactId)
-
-            const idx = this.contacts.findIndex(contact => contact._id === contactId)
-            this.contacts.splice(idx, 1)
-
-            // this.contacts = this.contacts.filter(contact => contact._id !== contactId)
-            eventBus.emit('user-msg', `Contact ${contactId} deleted...`)
+            try {
+                await this.$store.dispatch({ type: 'removeContact', contactId })
+                eventBus.emit('user-msg', `Contact ${contactId} deleted...`)
+            } catch (err) {
+                eventBus.emit('user-msg', `Couldn't remove contact...`)
+            }
         },
         setFilterBy(filterBy) {
             this.filterBy = filterBy
         }
     },
     computed: {
+        contacts() {
+            return this.$store.getters.contacts
+        },
         filteredContacts() {
             const regex = new RegExp(this.filterBy.txt, 'i')
             return this.contacts.filter(contact => regex.test(contact.fullname))
         }
     },
     async created() {
-        this.contacts = await contactService.query()
+        try {
+            this.$store.dispatch({ type: 'loadContacts' })
+            // this.contacts = await contactService.query()
+        } catch (err) {
+            eventBus.emit('user-msg', `Couldn't get contacts...`)
+        }
     },
     components: {
         ContactList,
