@@ -1,14 +1,14 @@
 <template>
     <header class="app-header">
         <div>
-            <div v-if="user">
-                <h3>Hello, {{ user.fullname }}</h3>
-                <p>Your balance is: {{ user.balance }}</p>
+            <div v-if="currUser">
+                <h3>Hello, {{ currUser.username }}</h3>
+                <p>Your balance is: {{ currUser.balance }}</p>
             </div>
             <h3 v-else>Hello, guest</h3>
         </div>
         <nav>
-            <RouterLink to="/">Home</RouterLink> |
+            <RouterLink to="/home">Home</RouterLink> |
             <RouterLink to="/contact">Contacts</RouterLink> |
             <RouterLink to="/stats">Stats</RouterLink> |
             <RouterLink to="/about">About</RouterLink>
@@ -17,17 +17,18 @@
 </template>
 
 <script>
-import { userService } from '@/services/user.service.js'
-
 export default {
-
-    data() {
-        return {
-            user: null,
+    computed: {
+        currUser() {
+            return this.$store.getters.currUser
         }
     },
     async created() {
-        this.user = await userService.getUser()
+        try {
+            this.$store.dispatch({ type: 'loadUsers' })
+        } catch (err) {
+            eventBus.emit('user-msg', `Couldn't get contacts...`)
+        }
     },
 }
 </script>
